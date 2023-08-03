@@ -2,12 +2,12 @@
   "private": true,
   "workspaces": [
     "frontend",
-    "backend"
+    "nest"
   ],
   "scripts": {
-    "dev": "concurrently npm:{frontend,backend}",
+    "dev": "concurrently npm:{frontend,nest}",
     "frontend": "yarn workspace frontend dev",
-    "backend": "yarn workspace backend dev",
+    "nest": "yarn workspace nest dev",
     "type-check": "yarn workspaces run type-check" 
   },
   "devDependencies": {

@@ -1,5 +1,112 @@
+body {
+  background-color: #1E1E1E;
+  color: #FFFFFF;
+  font-family: Arial, sans-serif;
+}
+
 .App {
-  font-family: sans-serif;
-  max-width: 40em;
-  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  gap: 20px;
+}
+
+.controls {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggle {
+  display: flex;
+  margin-right: 10px;
+}
+
+.toggle button {
+  background-color: #343434;
+  color: #FFFFFF;
+  border: none;
+  padding: 10px;
+  margin-right: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.toggle button.active {
+  background-color: #008000;
+}
+
+.input-group input {
+  flex-grow: 1;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  margin-right: 10px;
+  background-color: #2D2D2D;
+  color: #FFFFFF;
+}
+
+.generateBtn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  background-color: #007BFF;
+  color: #FFFFFF;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+
+.input-group button:hover {
+  opacity: 0.8;
+}
+
+.RequirementModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.RequirementModal dialog {
+  width: 80%;
+  max-width: 800px;
+  background-color: #2D2D2D;
+  border-radius: 5px;
+  padding: 20px;
+  color: #FFFFFF;
+  position: relative;
+  overflow-y: auto;
+  max-height: 90vh;
+}
+
+.RequirementModal button {
+  position: sticky;
+  right: 10px;
+  top: 10px;
+  background-color: #007BFF;
+  color: #FFFFFF;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.WordCloud {
+  width: 80%;
+  height: 60vh;
+  margin: 0 auto;
 }
