@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import fetch from 'node-fetch';
 import { URL } from 'url';
 import { DOMParser } from '@xmldom/xmldom';
@@ -9,11 +9,30 @@ export class WordCloudRssService {
   async fetchAndExtractTextFromFeed(
     url: URL,
   ): Promise<{ text: string; value: number }[]> {
-    const response = await fetch(url);
-    const xml = new DOMParser().parseFromString(
-      await response.text(),
-      response.headers.get('Content-Type') ?? undefined,
-    );
+    let response;
+
+    try {
+      response = await fetch(url);
+    } catch (err) {
+      console.error(`failed to fetch ${url}: ${err}`);
+      throw new HttpException('failed to fetch URL', HttpStatus.BAD_REQUEST);
+    }
+
+    if (!response.ok) {
+      throw new HttpException(`HTTP Err ${response.status}`, response.status);
+    }
+
+    let xml;
+
+    try {
+      xml = new DOMParser().parseFromString(
+        await response.text(),
+        response.headers.get('Content-Type') ?? undefined,
+      );
+    } catch (parseErr) {
+      throw new HttpException('failed to parse XML', HttpStatus.BAD_REQUEST);
+    }
+
     const descriptions = [];
     for (const descriptionElement of Array.prototype.slice.call(
       xml.getElementsByTagName('description'),

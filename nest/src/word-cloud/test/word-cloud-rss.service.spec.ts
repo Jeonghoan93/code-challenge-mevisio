@@ -26,10 +26,14 @@ describe('WordCloudRssService', () => {
         </channel>
       </rss>
     `;
+
     mockFetch.mockResolvedValueOnce({
+      ok: true,
+      status: 200,
       text: () => Promise.resolve(rssXML),
       headers: { get: () => 'application/rss+xml' },
     } as any);
+
     const wordCount = await service.fetchAndExtractTextFromFeed(
       new URL('http://localhost/rss'),
     );

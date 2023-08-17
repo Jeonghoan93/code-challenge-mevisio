@@ -1,4 +1,10 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  HttpException,
+  HttpStatus,
+  Query,
+} from '@nestjs/common';
 import { WordCloudRssService } from './word-cloud-rss.service';
 import { URL } from 'url';
 
@@ -8,6 +14,17 @@ export class WordCloudController {
 
   @Get('rss')
   async getRssData(@Query('url') url: URL) {
-    return this.wordCloudRssService.fetchAndExtractTextFromFeed(url);
+    try {
+      return this.wordCloudRssService.fetchAndExtractTextFromFeed(url);
+    } catch (err) {
+      if (err instanceof HttpException) {
+        throw err;
+      } else {
+        throw new HttpException(
+          'Internal Server Error',
+          HttpStatus.INTERNAL_SERVER_ERROR,
+        );
+      }
+    }
   }
 }
